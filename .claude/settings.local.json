@@ -1,0 +1,27 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c ' *)",
+      "Bash(npm -v)",
+      "Bash(mkdir -p frontend/public frontend/src/components/intro frontend/src/styles frontend/src/theme frontend/src/data frontend/src/hooks)",
+      "Bash(cp scratch_logo.jpg frontend/public/logo.jpg)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)",
+      "Read(//Applications/Google Chrome.app/Contents/MacOS/**)",
+      "Read(//Users/damian/Library/Caches/ms-playwright/**)",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(npm init *)",
+      "Bash(npm i *)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(ls node_modules/playwright)",
+      "Bash(node shoot.mjs)",
+      "Bash(node dropfile.mjs)",
+      "Bash(rm -f scratch_template.html scratch_extres.json scratch_logo.jpg scratch_image_slot.js)",
+      "Bash(pkill -f \"vite preview\")",
+      "Bash(lsof -ti:4173)",
+      "Bash(xargs kill)",
+      "Bash(node shoot2.mjs)"
+    ]
+  }
+}

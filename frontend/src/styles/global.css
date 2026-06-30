@@ -1,0 +1,257 @@
+/* ============================================================
+   Global base, keyframes and interaction utilities
+   El Victtor's Tattoo
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #0a0908;
+  color: #d8d2c4;
+  font-family: 'Oswald', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Lock scroll while the intro overlay owns the screen. */
+body.intro-lock {
+  overflow: hidden;
+}
+
+::selection {
+  background: #c20e26;
+  color: #0a0908;
+}
+
+::placeholder {
+  color: #6a635a;
+  font-family: 'Special Elite', monospace;
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ============================================================
+   Keyframes (ported verbatim from the source design)
+   ============================================================ */
+
+/* Ink Bleed */
+@keyframes ib-ink {
+  0% {
+    filter: blur(18px);
+    opacity: 0.1;
+    letter-spacing: 0.26em;
+    text-shadow: 0 0 28px #c20e26;
+  }
+  60% { text-shadow: 0 0 14px #c20e26; }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    letter-spacing: 0.01em;
+    text-shadow: 0 0 0 transparent;
+  }
+}
+@keyframes ib-bleed {
+  0%   { opacity: 0; transform: scale(0.5); }
+  45%  { opacity: 0.55; }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* Shared UI */
+@keyframes cue {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50%      { transform: translateY(7px); opacity: 1; }
+}
+@keyframes pulseBtn {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(194, 14, 38, 0.55); }
+  50%      { box-shadow: 0 0 0 14px rgba(194, 14, 38, 0); }
+}
+@keyframes mq {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   Interaction utilities
+   React inline styles can't express :hover / :focus, so the
+   hover/focus colour transitions live here as small classes.
+   The base colour is owned by the class (not inline) so the
+   :hover rule isn't overridden by an inline declaration.
+   ============================================================ */
+
+/* muted link -> red */
+.lnk {
+  color: #b8b1a3;
+  transition: color 0.18s ease;
+}
+.lnk:hover {
+  color: #c20e26;
+}
+
+/* footer muted link -> red */
+.lnk-foot {
+  color: #9a9286;
+  transition: color 0.18s ease;
+}
+.lnk-foot:hover {
+  color: #c20e26;
+}
+
+/* large heading link -> red */
+.lnk-heading {
+  color: #e8e2d6;
+  transition: color 0.2s ease;
+}
+.lnk-heading:hover {
+  color: #c20e26;
+}
+
+/* solid red button -> outline */
+.btn-fill {
+  background: #c20e26;
+  color: #0a0908;
+  border: 1px solid #c20e26;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-fill:hover {
+  background: transparent;
+  color: #c20e26;
+}
+
+/* neutral outline button -> red outline */
+.btn-outline {
+  background: transparent;
+  color: #d8d2c4;
+  border: 1px solid rgba(216, 210, 196, 0.28);
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-outline:hover {
+  border-color: #c20e26;
+  color: #c20e26;
+}
+
+/* red outline button -> solid red */
+.btn-outline-red {
+  background: transparent;
+  border: 1px solid #c20e26;
+  color: #c20e26;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-outline-red:hover {
+  background: #c20e26;
+  color: #0a0908;
+}
+
+/* faint outline control (intro skip / replay) */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid rgba(216, 210, 196, 0.25);
+  color: #9a9286;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: #c20e26;
+  color: #c20e26;
+}
+
+/* booking "instagram" row */
+.ig-row {
+  background: #0d0b0a;
+  transition: background 0.2s ease;
+}
+.ig-row:hover {
+  background: #120e0c;
+}
+
+/* form fields */
+.field {
+  background: #120f0d;
+  border: 1px solid rgba(216, 210, 196, 0.16);
+  padding: 12px 13px;
+  color: #e8e2d6;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+.field:focus {
+  border-color: #c20e26;
+}
+.field--select {
+  cursor: pointer;
+}
+.field--date {
+  color-scheme: dark;
+}
+.field--area {
+  resize: vertical;
+  font-family: 'Oswald', sans-serif;
+}
+
+/* ============================================================
+   Responsive — the source layout is desktop-first; these
+   breakpoints keep it usable on tablet / phone.
+   ============================================================ */
+
+@media (max-width: 860px) {
+  .book-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav-links {
+    gap: 18px !important;
+  }
+  .nav-links .nav-text {
+    display: none;
+  }
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 150px !important;
+  }
+  .ig-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 460px) {
+  .work-grid {
+    grid-auto-rows: 130px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
