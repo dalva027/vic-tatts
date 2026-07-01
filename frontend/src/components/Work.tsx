@@ -99,7 +99,12 @@ export function Work() {
               background: HATCH,
             }}
           >
-            <ImageSlot id={item.id} placeholder={item.placeholder} shape="rect" />
+            <ImageSlot
+              id={item.id}
+              placeholder={item.placeholder}
+              title={item.title}
+              shape="rect"
+            />
             <div style={caption}>
               <span
                 style={{

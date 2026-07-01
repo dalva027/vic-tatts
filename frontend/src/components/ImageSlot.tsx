@@ -7,6 +7,7 @@ import {
   type DragEvent,
 } from 'react'
 import { fileToScaledDataUrl, useImageSlot } from '../hooks/useImageSlot'
+import { useLightbox } from './Lightbox'
 import './ImageSlot.css'
 
 type Shape = 'rect' | 'rounded' | 'circle' | 'pill'
@@ -16,6 +17,8 @@ export interface ImageSlotProps {
   /** Stable persistence key — every slot on the page needs a distinct id. */
   id: string
   placeholder?: string
+  /** Label used as the lightbox caption and image alt text once filled. */
+  title?: string
   shape?: Shape
   fit?: Fit
   className?: string
@@ -30,6 +33,7 @@ export interface ImageSlotProps {
 export function ImageSlot({
   id,
   placeholder = 'Drop an image',
+  title,
   shape = 'rect',
   fit = 'cover',
   className = '',
@@ -40,6 +44,11 @@ export function ImageSlot({
   const [error, setError] = useState<string | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const inputId = useId()
+  const lightbox = useLightbox()
+
+  const view = useCallback(() => {
+    if (src) lightbox?.open({ src, alt: title || placeholder, caption: title })
+  }, [src, title, placeholder, lightbox])
 
   const ingest = useCallback(
     async (file: File | undefined | null) => {
@@ -90,19 +99,22 @@ export function ImageSlot({
       className={`slot ${shapeClass} ${className}`.trim()}
       data-over={over}
       data-filled={Boolean(src)}
-      style={style}
+      style={src ? { cursor: 'zoom-in', ...style } : style}
       onDrop={onDrop}
       onDragOver={onDragOver}
       onDragEnter={onDragOver}
       onDragLeave={onDragLeave}
-      onClick={src ? undefined : browse}
+      onClick={src ? view : browse}
       role="button"
       tabIndex={0}
-      aria-label={src ? `${placeholder} (filled)` : placeholder}
+      aria-label={
+        src ? `View ${title || placeholder} full size` : placeholder
+      }
       onKeyDown={(e) => {
-        if (!src && (e.key === 'Enter' || e.key === ' ')) {
+        if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          browse()
+          if (src) view()
+          else browse()
         }
       }}
     >

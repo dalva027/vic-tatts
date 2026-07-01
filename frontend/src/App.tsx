@@ -9,6 +9,7 @@ import { BookingForm } from './components/BookingForm'
 import { InstagramFeed } from './components/InstagramFeed'
 import { Footer } from './components/Footer'
 import { Intro } from './components/intro/Intro'
+import { LightboxProvider } from './components/Lightbox'
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(true)
@@ -20,7 +21,7 @@ export default function App() {
   }, [showIntro])
 
   return (
-    <>
+    <LightboxProvider>
       <Grain show={site.showGrain} />
 
       <Navbar />
@@ -37,6 +38,6 @@ export default function App() {
       {showIntro && (
         <Intro onDone={() => setShowIntro(false)} tagline={site.tagline} />
       )}
-    </>
+    </LightboxProvider>
   )
 }
