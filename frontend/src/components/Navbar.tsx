@@ -59,7 +59,7 @@ export function Navbar() {
             lineHeight: 1,
           }}
         >
-          {site.name}
+          {site.fullName}
         </span>
       </a>
       <div className="nav-links" style={linkRow}>
