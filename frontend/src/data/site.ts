@@ -52,14 +52,14 @@ export interface WorkItem {
 }
 
 export const workItems: WorkItem[] = [
-  { id: 'work-1', title: 'Traditional Rose', number: '01', placeholder: 'traditional rose // drop photo', col: 'span 2', row: 'span 2' },
-  { id: 'work-2', title: 'Swallow Flash',    number: '02', placeholder: 'swallow flash // drop photo',    col: 'span 2', row: 'span 1' },
-  { id: 'work-3', title: 'Dagger & Snake',   number: '03', placeholder: 'dagger // drop photo',           col: 'span 1', row: 'span 1' },
-  { id: 'work-4', title: 'Lettering',        number: '04', placeholder: 'lettering // drop photo',        col: 'span 1', row: 'span 1' },
-  { id: 'work-5', title: 'Blackwork Sleeve', number: '05', placeholder: 'blackwork sleeve // drop photo', col: 'span 1', row: 'span 2' },
-  { id: 'work-6', title: 'American Eagle',   number: '06', placeholder: 'eagle // drop photo',            col: 'span 1', row: 'span 1' },
-  { id: 'work-7', title: 'Panther',          number: '07', placeholder: 'panther // drop photo',          col: 'span 2', row: 'span 2' },
-  { id: 'work-8', title: 'Anchor',           number: '08', placeholder: 'anchor // drop photo',           col: 'span 1', row: 'span 1' },
+  { id: 'work-1', title: 'Anubis', number: '01', placeholder: 'traditional rose // drop photo', col: 'span 2', row: 'span 2' },
+  { id: 'work-2', title: 'Lettering',    number: '02', placeholder: 'swallow flash // drop photo',    col: 'span 2', row: 'span 1' },
+  { id: 'work-3', title: 'Dagger & Eye',   number: '03', placeholder: 'dagger // drop photo',           col: 'span 1', row: 'span 1' },
+  { id: 'work-4', title: 'Fine Line',        number: '04', placeholder: 'lettering // drop photo',        col: 'span 1', row: 'span 1' },
+  { id: 'work-5', title: 'Traditional', number: '05', placeholder: 'blackwork sleeve // drop photo', col: 'span 1', row: 'span 2' },
+  { id: 'work-6', title: 'Color',   number: '06', placeholder: 'eagle // drop photo',            col: 'span 1', row: 'span 1' },
+  { id: 'work-7', title: '11:11',          number: '07', placeholder: 'panther // drop photo',          col: 'span 2', row: 'span 2' },
+  { id: 'work-8', title: 'Texas',           number: '08', placeholder: 'anchor // drop photo',           col: 'span 1', row: 'span 1' },
 ]
 
 export const instagramSlots = [
