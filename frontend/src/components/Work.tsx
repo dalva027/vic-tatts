@@ -72,18 +72,20 @@ export function Work() {
             Finished Pieces
           </h2>
         </div>
-        <p
-          style={{
-            maxWidth: 340,
-            fontSize: 13,
-            lineHeight: 1.7,
-            color: colors.muted3,
-            fontFamily: fonts.mono,
-          }}
-        >
-          // drag your photos straight onto the frames to build the gallery —
-          they stick.
-        </p>
+        {import.meta.env.DEV && (
+          <p
+            style={{
+              maxWidth: 340,
+              fontSize: 13,
+              lineHeight: 1.7,
+              color: colors.muted3,
+              fontFamily: fonts.mono,
+            }}
+          >
+            // drag your photos straight onto the frames to build the gallery —
+            they save to the site.
+          </p>
+        )}
       </div>
 
       <div className="work-grid" style={grid}>
