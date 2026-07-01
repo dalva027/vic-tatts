@@ -57,7 +57,7 @@ export const workItems: WorkItem[] = [
   { id: 'work-3', title: 'Dagger & Eye',   number: '03', placeholder: 'dagger // drop photo',           col: 'span 1', row: 'span 1' },
   { id: 'work-4', title: 'Fine Line',        number: '04', placeholder: 'lettering // drop photo',        col: 'span 1', row: 'span 1' },
   { id: 'work-5', title: 'Traditional', number: '05', placeholder: 'blackwork sleeve // drop photo', col: 'span 1', row: 'span 2' },
-  { id: 'work-6', title: 'American Eagle',   number: '06', placeholder: 'eagle // drop photo',            col: 'span 1', row: 'span 1' },
+  { id: 'work-6', title: 'Color',   number: '06', placeholder: 'eagle // drop photo',            col: 'span 1', row: 'span 1' },
   { id: 'work-7', title: '11:11',          number: '07', placeholder: 'panther // drop photo',          col: 'span 2', row: 'span 2' },
   { id: 'work-8', title: 'Texas',           number: '08', placeholder: 'anchor // drop photo',           col: 'span 1', row: 'span 1' },
 ]
