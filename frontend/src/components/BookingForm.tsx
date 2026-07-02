@@ -29,7 +29,23 @@ const EMPTY: FormState = {
   idea: '',
 }
 
-const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:4000'
+// Resolve the booking API's base URL to an absolute http(s) origin.
+//
+// If VITE_API_BASE is a bare host ("api.example.com") or "host:port", fetch()
+// treats the value's leading token as a custom URL scheme — which makes the
+// browser pop up an "open an external app / access other apps on your device"
+// prompt instead of sending the request. Forcing https:// (or same-origin when
+// unset) guarantees a real HTTP request.
+function resolveApiBase(): string {
+  const raw = (import.meta.env.VITE_API_BASE ?? '').trim().replace(/\/+$/, '')
+  if (raw) {
+    return /^https?:\/\//i.test(raw) ? raw : `https://${raw.replace(/^\/+/, '')}`
+  }
+  // No override configured: localhost in dev, same-origin in production.
+  return import.meta.env.DEV ? 'http://localhost:4000' : ''
+}
+
+const API_BASE = resolveApiBase()
 
 // A phone we can actually text: allowed characters, and at least 10 digits.
 const phoneOk = (v: string) =>
