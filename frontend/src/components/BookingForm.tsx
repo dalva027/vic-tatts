@@ -123,11 +123,11 @@ export function BookingForm() {
     const phone = form.phone.trim()
     const idea = form.idea.trim()
 
-    if (!name || !instagram || !phone || !idea) {
-      setError('// name, Instagram, phone and the idea are required to send.')
+    if (!name || !phone || !idea) {
+      setError('// name, phone and the idea are required to send.')
       return
     }
-    if (!instagramOk(instagram)) {
+    if (instagram && !instagramOk(instagram)) {
       setError('// enter a valid Instagram username (e.g. @yourhandle).')
       return
     }
@@ -157,7 +157,7 @@ export function BookingForm() {
       setSubmitted(true)
       setSubmittedName(', ' + name.split(' ')[0])
     } catch {
-      setError('// could not send right now — try again, or DM me on Instagram.')
+      setError('// could not send right now — try again, or reach me by Text or Instagram.')
     } finally {
       setSubmitting(false)
     }
@@ -290,9 +290,9 @@ export function BookingForm() {
                   margin: '0 auto 26px',
                 }}
               >
-                Thanks{submittedName} — your idea is in the book. I'll DM you on
-                Instagram within 48 hours to talk through the design and set a
-                deposit.
+                Thanks{submittedName} — your idea is in the book. I'll reach out
+                by Text or Instagram within 48 hours to talk through the design
+                and set a deposit.
               </p>
               <button
                 type="button"
@@ -349,7 +349,7 @@ export function BookingForm() {
                   />
                 </label>
                 <label style={label}>
-                  Instagram
+                  Instagram (optional)
                   <input
                     className="field"
                     name="instagram"

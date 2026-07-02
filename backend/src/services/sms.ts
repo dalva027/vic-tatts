@@ -77,7 +77,7 @@ export async function sendOwnerBookingSMS(
     booking.placement ? `Placement: ${booking.placement}` : null,
     booking.size ? `Size: ${booking.size}` : null,
     `Preferred: ${formatPreferred(booking.date)}`,
-    `IG: @${booking.instagram}`,
+    booking.instagram ? `IG: @${booking.instagram}` : null,
     `Phone: ${booking.phone}`,
     `Idea: ${booking.idea}`,
   ].filter((line): line is string => line !== null);

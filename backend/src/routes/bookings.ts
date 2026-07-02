@@ -7,17 +7,19 @@ const router = Router();
 
 const bookingSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
-  // Instagram username instead of email — @ optional, letters/digits/._ only.
+  // Instagram username instead of email — optional; @ optional, letters/
+  // digits/._ only when provided.
   instagram: z
     .string()
     .trim()
-    .min(1, "Instagram username is required")
     .max(60)
     .transform((v) => v.replace(/^@+/, ""))
     .refine(
-      (v) => /^[A-Za-z0-9._]{1,30}$/.test(v),
+      (v) => v === "" || /^[A-Za-z0-9._]{1,30}$/.test(v),
       "Invalid Instagram username"
-    ),
+    )
+    .optional()
+    .default(""),
   phone: z
     .string()
     .trim()
