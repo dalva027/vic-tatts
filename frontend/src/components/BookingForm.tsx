@@ -9,7 +9,8 @@ import { colors, fonts } from '../theme/tokens'
 
 interface FormState {
   name: string
-  email: string
+  instagram: string
+  phone: string
   style: string
   placement: string
   size: string
@@ -19,13 +20,22 @@ interface FormState {
 
 const EMPTY: FormState = {
   name: '',
-  email: '',
+  instagram: '',
+  phone: '',
   style: 'Traditional',
   placement: '',
   size: '',
   date: '',
   idea: '',
 }
+
+const API_BASE = import.meta.env.VITE_API_BASE ?? 'http://localhost:4000'
+
+// A phone we can actually text: allowed characters, and at least 10 digits.
+const phoneOk = (v: string) =>
+  /^\+?[\d\s\-().]+$/.test(v) && (v.match(/\d/g)?.length ?? 0) >= 10
+// Instagram handle, with or without a leading @.
+const instagramOk = (v: string) => /^@?[A-Za-z0-9._]{1,30}$/.test(v)
 
 const section: CSSProperties = {
   position: 'relative',
@@ -79,7 +89,8 @@ const infoKey: CSSProperties = {
 export function BookingForm() {
   const [form, setForm] = useState<FormState>(EMPTY)
   const [submitted, setSubmitted] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState(false)
   const [submittedName, setSubmittedName] = useState('')
 
   const onField = (
@@ -89,21 +100,56 @@ export function BookingForm() {
     setForm((f) => ({ ...f, [name]: value }))
   }
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.idea) {
-      setError(true)
+    const name = form.name.trim()
+    const instagram = form.instagram.trim()
+    const phone = form.phone.trim()
+    const idea = form.idea.trim()
+
+    if (!name || !instagram || !phone || !idea) {
+      setError('// name, Instagram, phone and the idea are required to send.')
       return
     }
-    // Where a real backend / Instagram DM webhook would be called.
-    setSubmitted(true)
-    setError(false)
-    setSubmittedName(form.name ? ', ' + form.name.trim().split(' ')[0] : '')
+    if (!instagramOk(instagram)) {
+      setError('// enter a valid Instagram username (e.g. @yourhandle).')
+      return
+    }
+    if (!phoneOk(phone)) {
+      setError('// enter a valid phone number (at least 10 digits).')
+      return
+    }
+
+    setSubmitting(true)
+    setError(null)
+    try {
+      const res = await fetch(`${API_BASE}/api/bookings`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          instagram: instagram.replace(/^@+/, ''),
+          phone,
+          style: form.style,
+          placement: form.placement.trim(),
+          size: form.size.trim(),
+          date: form.date,
+          idea,
+        }),
+      })
+      if (!res.ok) throw new Error('request failed')
+      setSubmitted(true)
+      setSubmittedName(', ' + name.split(' ')[0])
+    } catch {
+      setError('// could not send right now — try again, or DM me on Instagram.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const resetForm = () => {
     setSubmitted(false)
-    setError(false)
+    setError(null)
     setForm(EMPTY)
   }
 
@@ -136,7 +182,7 @@ export function BookingForm() {
             }}
           >
             Tell me what you're after. Send a reference, a rough size and where
-            it's going. I'll come back to you on Instagram to lock the day and
+            it's going. I'll come back to you on Text or Instagram to lock the day and
             the deposit.
           </p>
           <div
@@ -287,13 +333,29 @@ export function BookingForm() {
                   />
                 </label>
                 <label style={label}>
-                  Email
+                  Instagram
                   <input
                     className="field"
-                    name="email"
-                    value={form.email}
+                    name="instagram"
+                    value={form.instagram}
                     onChange={onField}
-                    placeholder="you@email.com"
+                    placeholder="@yourhandle"
+                    autoComplete="off"
+                    autoCapitalize="none"
+                    spellCheck={false}
+                    style={{ letterSpacing: 0 }}
+                  />
+                </label>
+                <label style={label}>
+                  Phone
+                  <input
+                    className="field"
+                    type="tel"
+                    name="phone"
+                    value={form.phone}
+                    onChange={onField}
+                    placeholder="+1 555 123 4567"
+                    autoComplete="tel"
                     style={{ letterSpacing: 0 }}
                   />
                 </label>
@@ -367,13 +429,14 @@ export function BookingForm() {
                     letterSpacing: '.05em',
                   }}
                 >
-                  // name, email and the idea are required to send.
+                  {error}
                 </div>
               )}
 
               <button
                 type="submit"
                 className="btn-fill"
+                disabled={submitting}
                 style={{
                   marginTop: 22,
                   width: '100%',
@@ -382,9 +445,11 @@ export function BookingForm() {
                   fontSize: 14,
                   letterSpacing: '.24em',
                   textTransform: 'uppercase',
+                  opacity: submitting ? 0.6 : 1,
+                  cursor: submitting ? 'wait' : 'pointer',
                 }}
               >
-                Send Request →
+                {submitting ? 'Sending…' : 'Send Request →'}
               </button>
             </form>
           )}

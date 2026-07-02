@@ -25,7 +25,7 @@ export const site = {
   hours: [
     { label: 'Hours', value: 'Tue–Sat · 12–8pm', muted: false },
     { label: 'Walk-ins', value: 'Fri & Sat · flash only', muted: false },
-    { label: 'Studio', value: '// add address', muted: true },
+    
   ],
   styles: [
     'Traditional',
