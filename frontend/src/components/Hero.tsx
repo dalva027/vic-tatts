@@ -62,7 +62,7 @@ export function Hero() {
         }}
       >
         <span style={tick} />
-        Est. · Traditional Tattoo
+        Est. 2020 · Traditional Tattoo
         <span style={tick} />
       </div>
 

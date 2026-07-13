@@ -174,7 +174,7 @@ export function BookingForm() {
       <div className="book-grid" style={grid}>
         {/* Left — pitch + hours */}
         <div>
-          <div style={eyebrow}>02 — Get Inked</div>
+          <div style={eyebrow}>Get Inked</div>
           <h2
             style={{
               fontFamily: fonts.display,

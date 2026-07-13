@@ -32,7 +32,7 @@ export function InstagramFeed() {
             marginBottom: 12,
           }}
         >
-          03 — The Feed
+          The Feed
         </div>
         <a
           href={site.igUrl}

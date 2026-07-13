@@ -58,7 +58,7 @@ export function Work() {
     <section id="work" style={section}>
       <div style={head}>
         <div>
-          <div style={eyebrow}>01 — The Portfolio</div>
+          <div style={eyebrow}>Portfolio</div>
           <h2
             style={{
               fontFamily: fonts.display,
